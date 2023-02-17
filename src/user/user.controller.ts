@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  HttpException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,10 +17,7 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    if (1) {
-      throw new HttpException('error', 503);
-    }
-    return 'post test';
+    return createUserDto;
   }
 
   @Get()
