@@ -3,8 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
+  Request,
+  Query,
+  Headers,
+  HttpCode,
+  Patch,
   Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -21,8 +25,12 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return 'test';
+  findAll(@Query() query) {
+    console.log(query)
+    return {
+      code: 200,
+      message: query.name
+    }
   }
 
   @Get(':id')
