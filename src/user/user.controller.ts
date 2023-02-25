@@ -48,7 +48,7 @@ export class UserController {
       fontSize: 50,
       width: 100,
       height: 34,
-      background: '#cc9966',
+      background: '#9fc5e8',
     })
     console.log('123',Captcha)
     session.code = Captcha.text;
