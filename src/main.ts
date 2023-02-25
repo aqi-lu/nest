@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ResponseInterceptor } from './utils/response.interceptor';
 import { HttpExceptionFilter } from './utils/http.filter';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import * as session from 'express-session'
 
 async function bootstrap() {
@@ -14,7 +14,10 @@ async function bootstrap() {
       validateCustomDecorators: false,
     }),
   );
-  app.use(session({ secret: "aqi", rolling: true, name: "aqi.sid", cookie: { maxAge: 999999 } }))
+  // app.enableVersioning({
+  //   type: VersioningType.URI
+  // })
+  app.use(session({ secret: "aqi", rolling: true, name: "aqi.sid", cookie: { maxAge: 99999 } }))
   await app.listen(3000);
 }
 bootstrap();
