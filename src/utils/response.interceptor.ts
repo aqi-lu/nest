@@ -14,13 +14,13 @@ export class ResponseInterceptor implements NestInterceptor {
     const http = context.switchToHttp();
     const request = http.getRequest<Request>();
     return next.handle().pipe(
-      map((data) => ({
-        code: 0,
-        url: request.url,
-        data: data,
-        msg: 'ok',
-        err: null,
-      })),
+      // map((data) => ({
+      //   code: 0,
+      //   url: request.url,
+      //   data: data,
+      //   msg: 'ok',
+      //   err: null,
+      // })),
     );
   }
 }
