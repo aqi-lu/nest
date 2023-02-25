@@ -22,24 +22,24 @@ import * as svgCaptcha from 'svg-captcha'
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return createUserDto;
-  }
+  // @Post()
+  // create(@Body() createUserDto: CreateUserDto) {
+  //   return createUserDto;
+  // }
 
-  @Get()
-  findAll(@Query() query) {
-    console.log(query)
-    return {
-      code: 200,
-      message: query.name
-    }
-  }
+  // @Get()
+  // findAll(@Query() query) {
+  //   console.log(query)
+  //   return {
+  //     code: 200,
+  //     message: query.name
+  //   }
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.userService.findOne(+id);
+  // }
 
   @Get('code')
   createCode(@Request() req,@Res() res,@Session() session) {
@@ -50,26 +50,36 @@ export class UserController {
       height: 34,
       background: '#cc9966',
     })
+    console.log('123',Captcha)
     session.code = Captcha.text;
-    res.type('image/scg+xml')
+    res.type('image/svg+xml')
     res.send(Captcha.data)
   }
 
   @Post('create')
   createUser(@Body() Body,@Session() session) {
     console.log(Body,session.code)
-    return {
-      code: 200
+    if(session.code.toLocaleLowerCase() === Body?.code?.toLocaleLowerCase()){
+      return {
+        code: 200,
+        result: {token: "SUIBIANXIEXIEDEBUYAOKANLALALALAL"},
+        message:'验证码正确'
+      }
+    }else{
+      return {
+        code: 100,
+        message:'验证码错误'
+      }
     }
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  //   return this.userService.update(+id, updateUserDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.userService.remove(+id);
+  // }
 }
